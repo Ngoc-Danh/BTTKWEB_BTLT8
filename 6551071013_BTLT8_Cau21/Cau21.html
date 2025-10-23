@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Work To-Dos</title>
+  <link rel="stylesheet" href="style21.css">
+</head>
+<body>
+  <h1>WORK TO-DOS</h1>
+
+  <div id="todo-container">
+    <input type="text" id="todo-input" placeholder="New item...">
+    <button id="add-btn">➕</button>
+    <ul id="todo-list"></ul>
+  </div>
+
+  <script>
+    const input = document.getElementById("todo-input");
+    const addBtn = document.getElementById("add-btn");
+    const list = document.getElementById("todo-list");
+
+    addBtn.addEventListener("click", () => {
+      const text = input.value.trim();
+      if (text === "") return alert("Vui lòng nhập công việc!");
+
+      const li = document.createElement("li");
+      li.textContent = text;
+
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "X";
+      delBtn.className = "delete-btn";
+
+      delBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        li.remove();
+      });
+
+      li.addEventListener("click", () => {
+        li.classList.toggle("completed");
+      });
+
+      li.appendChild(delBtn);
+      list.appendChild(li);
+      input.value = "";
+    });
+
+    input.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") addBtn.click();
+    });
+  </script>
+</body>
+</html>
